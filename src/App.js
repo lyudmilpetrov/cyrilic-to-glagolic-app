@@ -133,7 +133,7 @@ function App() {
         }}
       >
         <Typography variant="h4" gutterBottom>
-          Въведете текст на кирилица
+          Въведете текст на кирилица за да бъде преведен на глаголица
         </Typography>
         <Box
           sx={{
