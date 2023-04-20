@@ -1,4 +1,20 @@
 npm run build
+
+
+# Switch to the gh-pages branch
+git checkout gh-pages
+
+# Delete the branch
+git branch -D gh-pages
+
+# Push the deletion to the remote repository
+git push origin --delete gh-pages
+
+# Switch back to your main branch (e.g., main or master)
+git checkout main
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
