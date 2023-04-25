@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -11,27 +11,27 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
+  Paper, Card, CardContent
 } from "@mui/material";
 // https://www.cphpvb.net/transliteration/glagolica.php
 function App() {
   const columnsGrid = [
     { field: "letter", headerName: "Буква", minWidth: 100 },
-    { field: "unicode", headerName: "Unicode", minWidth: 100 },
+    // { field: "unicode", headerName: "Unicode", minWidth: 100 },
     { field: "name", headerName: "Име", minWidth: 100 },
     { field: "sound", headerName: "Звук", minWidth: 100 },
     { field: "numericValue", headerName: "Числена стойност", minWidth: 150 },
     { field: "cyrillicConnection", headerName: "Връзка с кирилицата", minWidth: 150 },
-    { field: "greekConnection", headerName: "Връзка с гръцкия", minWidth: 150 },
+    // { field: "greekConnection", headerName: "Връзка с гръцкия", minWidth: 150 },
   ];
   const columns = [
     { id: "letter", label: "Буква" },
-    { id: "unicode", label: "Unicode" },
+    // { id: "unicode", label: "Unicode" },
     { id: "name", label: "Име" },
     { id: "sound", label: "Звук" },
     { id: "numericValue", label: "Числена стойност" },
     { id: "cyrillicConnection", label: "Връзка с кирилицата" },
-    { id: "greekConnection", label: "Връзка с гръцкия" },
+    // { id: "greekConnection", label: "Връзка с гръцкия" },
   ];
   const rows = [
     { id: 1, letter: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Glagoljica_Az.svg', unicode: 'Ⰰ', name: 'Аз', sound: 'а', numericValue: 1, greekConnection: 'Alpha (Α)', cyrillicConnection: 'А' },
@@ -64,51 +64,58 @@ function App() {
     { id: 28, letter: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/Glagoljica_%C5%A0a.svg', unicode: 'Ⱎ', name: 'Ша', sound: 'ш', numericValue: 2000, greekConnection: '', cyrillicConnection: 'Ш' },
     { id: 29, letter: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/Glagolitic_shta.svg', unicode: 'Ⱋ', name: 'Ща', sound: 'щ', numericValue: 800, greekConnection: '', cyrillicConnection: 'Щ' },
     { id: 30, letter: 'https://upload.wikimedia.org/wikipedia/commons/b/b0/Glagolitic_yer.svg', unicode: 'Ⱏ', name: 'Ер голям', sound: 'ъ', numericValue: 3000, greekConnection: '', cyrillicConnection: 'Ъ' },
-    { id: 31, letter: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Glagolitic_yeri.svg', unicode: 'Ⰺ', name: 'Еры', sound: 'ы', numericValue: 3500, greekConnection: '', cyrillicConnection: 'Ы' },
-    { id: 32, letter: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Glagolitic_yerj.svg', unicode: 'Ⱐ', name: 'Ер малък', sound: 'ь', numericValue: 3900, greekConnection: '', cyrillicConnection: 'Ь' },
+    { id: 31, letter: 'https://upload.wikimedia.org/wikipedia/commons/f/f6/Glagolitic_yeri.svg', unicode: 'Ⰺ', name: 'Еры', sound: 'ы', numericValue: null, greekConnection: '', cyrillicConnection: 'Ы' },
+    { id: 32, letter: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Glagolitic_yerj.svg', unicode: 'Ⱐ', name: 'Ер малък', sound: 'ь', numericValue: null, greekConnection: '', cyrillicConnection: 'Ь' },
     { id: 33, letter: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Glagolitic_capital_letter_Yati.svg', unicode: 'Ⱑ', name: 'Ят (е-двойно)', sound: 'ѣ', numericValue: 4000, greekConnection: '', cyrillicConnection: 'ѣ (произнася се „е“ или „я“), премахната през 1945' },
-    { id: 34, letter: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Glagolitic_capital_letter_Yo.svg', unicode: 'Ⱖ', name: 'Я', sound: 'я', numericValue: 4500, greekConnection: '', cyrillicConnection: 'Я' },
+    { id: 34, letter: 'https://upload.wikimedia.org/wikipedia/commons/3/38/Glagolitic_capital_letter_Yo.svg', unicode: 'Ⱖ', name: 'Я', sound: 'я', numericValue: null, greekConnection: '', cyrillicConnection: 'Я' },
     { id: 35, letter: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Glagolitic_yu.svg', unicode: 'Ⱓ', name: 'Ю', sound: 'ю', numericValue: 5000, greekConnection: '', cyrillicConnection: 'Ю' },
-    { id: 36, letter: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Glagolitic_ens.svg', unicode: 'Ⱔ', name: 'Юс малък', sound: 'ен', numericValue: 6000, greekConnection: '', cyrillicConnection: 'ѧ, не се употребява' },
-    { id: 37, letter: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Glagolitic_yens.svg', unicode: 'Ⱗ', name: 'Юс малък йотиран', sound: 'йен', numericValue: 7000, greekConnection: '', cyrillicConnection: 'ѩ, не се употребява' },
-    { id: 38, letter: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Glagolitic_ons.svg', unicode: 'Ⱘ', name: 'Юс голям (носовка)', sound: 'он', numericValue: 8000, greekConnection: '', cyrillicConnection: 'ѫ (чете се „ъ“, „он“), премахната от българския през 1945' },
-    { id: 39, letter: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Glagolitic_yons.svg', unicode: 'Ⱙ', name: 'Юс голям йотиран', sound: 'йон', numericValue: 9000, greekConnection: '', cyrillicConnection: 'ѭ, не се употребява' },
-    { id: 40, letter: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Glagolitic_fert.svg', unicode: 'Ⱚ', name: 'Тита', sound: 'Т', numericValue: 9500, greekConnection: 'Theta', cyrillicConnection: 'ѳ, използвана само за възпроизвеждане на гръцки' },
-    { id: 41, letter: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Glagolitic_izhitsa.svg', unicode: 'Ⱛ', name: 'Ижица', sound: 'и', numericValue: 10000, greekConnection: 'Upsilon', cyrillicConnection: 'ѵ, премахната от руския през 1917' },
+    { id: 36, letter: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Glagolitic_ens.svg', unicode: 'Ⱔ', name: 'Юс малък', sound: 'ен', numericValue: null, greekConnection: '', cyrillicConnection: 'ѧ, не се употребява' },
+    { id: 37, letter: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Glagolitic_yens.svg', unicode: 'Ⱗ', name: 'Юс малък йотиран', sound: 'йен', numericValue: null, greekConnection: '', cyrillicConnection: 'ѩ, не се употребява' },
+    { id: 38, letter: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Glagolitic_ons.svg', unicode: 'Ⱘ', name: 'Юс голям (носовка)', sound: 'он', numericValue: null, greekConnection: '', cyrillicConnection: 'ѫ (чете се „ъ“, „он“), премахната от българския през 1945' },
+    { id: 39, letter: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Glagolitic_yons.svg', unicode: 'Ⱙ', name: 'Юс голям йотиран', sound: 'йон', numericValue: null, greekConnection: '', cyrillicConnection: 'ѭ, не се употребява' },
+    { id: 40, letter: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Glagolitic_fert.svg', unicode: 'Ⱚ', name: 'Тита', sound: 'Т', numericValue: null, greekConnection: 'Theta', cyrillicConnection: 'ѳ, използвана само за възпроизвеждане на гръцки' },
+    { id: 41, letter: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Glagolitic_izhitsa.svg', unicode: 'Ⱛ', name: 'Ижица', sound: 'и', numericValue: null, greekConnection: 'Upsilon', cyrillicConnection: 'ѵ, премахната от руския през 1917' },
   ];
+  const [filteredRows, setFilteredRows] = useState(rows);
   const [inputValue, setInputValue] = useState("");
   const [labelValue, setLabelValue] = useState("");
 
   const handleInputChange = (e) => {
-    // console.log(e.target.value);
-    const valueString = e.target.value.toUpperCase().replaceAll('ДЗ', 'Ⰷ');;
-    let valueStringTranslated = "";
-    setInputValue(e.target.value);
-    /// replaceDZ(conversionToGlagolic(valueString));
-    for (const character of valueString) {
-      let char = conversionToGlagolic(character);
-      valueStringTranslated += char;
+    console.log(e.target.value);
+    if (isCyrillicLetter(e.target.value[e.target.value.length - 1]) === true || e.target.value === "") {
+      const valueString = e.target.value.toUpperCase().replaceAll('ДЗ', 'Ⰷ');;
+      let valueStringTranslated = "";
+      setInputValue(e.target.value);
+      /// replaceDZ(conversionToGlagolic(valueString));
+      for (const character of valueString) {
+        let char = conversionToGlagolic(character);
+        valueStringTranslated += char;
+      }
+      valueStringTranslated.replaceAll('ⰄⰈ', 'Ⰷ');
+      // console.log(valueStringTranslated);
+      setLabelValue(valueStringTranslated);
     }
-    valueStringTranslated.replaceAll('ⰄⰈ', 'Ⰷ');
-    // console.log(valueStringTranslated);
-    setLabelValue(valueStringTranslated);
   };
   const conversionToGlagolic = (e) => {
     // console.log(e);
-    const excludedIds = [25, 33, 36, 37, 38, 39, 40, 41];
-    const filteredRows = rows.filter(row => !excludedIds.includes(row.id));
-    if (e === 'Ⰷ') {
-      return 'Ⰷ';
+    if (isCyrillicLetter(e) === true) {
+      const excludedIds = [25, 33, 36, 37, 38, 39, 40, 41];
+      const filteredRows = rows.filter(row => !excludedIds.includes(row.id));
+      if (e === 'Ⰷ') {
+        return 'Ⰷ';
+      }
+      if (e === 'Ы') {
+        return 'Ⰺ'
+      };
+      if (e === 'Й' || e === 'I') {
+        return 'Ⱏ'
+      }
+      //need to convert all the letters to glagolic
+      return findUnicodeByCyrillicConnection(e, filteredRows);
+    } else {
+      return e;
     }
-    if (e === 'Ы') {
-      return 'Ⰺ'
-    };
-    if (e === 'Й' || e === 'I') {
-      return 'Ⱏ'
-    }
-    //need to convert all the letters to glagolic
-    return findUnicodeByCyrillicConnection(e, filteredRows);
-  }
+  };
   const findUnicodeByCyrillicConnection = (letter, rows) => {
     for (const row of rows) {
       if (row.cyrillicConnection[0].toLowerCase() === letter.toLowerCase()) {
@@ -116,11 +123,37 @@ function App() {
       }
     }
     return letter; // or any fallback value
+  };
+  const isCyrillicLetter = (letter) => {
+    // if (isNumeric(letter)) {
+    //   return false;
+    // } else {
+    // const cyrillicRegex = /[\u0400-\u04FF\u0500-\u052F]/;
+    const cyrillicRegex = /[\u0410-\u044F]/; // This regex matches only Cyrillic uppercase and lowercase letters
+    return cyrillicRegex.test(letter);
+    // }
+  };
+  const isNumeric = (value) => {
+    return !isNaN(parseFloat(value)) && isFinite(value);
   }
-
-  // const replaceDZ = (e) => {
-  //   e.replaceAll('ⰄⰈ', 'Ⰷ');
-  // };
+  useEffect(() => {
+    console.log(labelValue);
+    let newRows = [];
+    for (const character of labelValue) {
+      console.log(character);
+      let x = rows.find(row => row.unicode === character);
+      // push if x does not exist in newRows
+      if (x !== undefined) {
+        if (!newRows.includes(x)) {
+          newRows.push(x);
+          setFilteredRows(newRows);
+        }
+      }
+    }
+    if (labelValue === '') {
+      setFilteredRows(rows);
+    }
+  }, [labelValue]);
   return (
     <Container maxWidth={false} disableGutters>
       <Box
@@ -149,7 +182,10 @@ function App() {
             onChange={handleInputChange}
           />
         </Box>
-        <Typography variant="h6" mt={2}>
+        <Typography variant="h6" mt={2} sx={{
+          fontWeight: 'bold',
+          fontSize: '2.5rem', // Adjust the value to your desired size
+        }}>
           {labelValue}
         </Typography>
         <TableContainer component={Paper}>
@@ -171,7 +207,7 @@ function App() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {filteredRows.map((row) => (
                 <TableRow key={row.id}>
                   <TableCell
                     component="th"
@@ -184,17 +220,17 @@ function App() {
                     }}
                   >
                     <img
-                      src={row.letter}
-                      alt={row.name}
+                      src={row?.letter ?? ""}
+                      alt={row?.name ?? ""}
                       style={{ width: "30px", height: "30px", objectFit: "contain" }}
                     />
                   </TableCell>
-                  <TableCell>{row.unicode}</TableCell>
-                  <TableCell>{row.name}</TableCell>
-                  <TableCell>{row.sound}</TableCell>
-                  <TableCell>{row.numericValue}</TableCell>
-                  <TableCell>{row.cyrillicConnection}</TableCell>
-                  <TableCell>{row.greekConnection}</TableCell>
+                  {/* <TableCell>{row?.unicode ?? ""}</TableCell> */}
+                  <TableCell>{row?.name ?? ""}</TableCell>
+                  <TableCell>{row?.sound ?? ""}</TableCell>
+                  <TableCell>{row?.numericValue ?? ""}</TableCell>
+                  <TableCell>{row?.cyrillicConnection ?? ""}</TableCell>
+                  {/* <TableCell>{row?.greekConnection ?? ""}</TableCell> */}
                 </TableRow>
               ))}
             </TableBody>
@@ -263,6 +299,46 @@ function App() {
           <DataGrid rows={rows} columns={columns} pageSize={5} />
         </div>
       </Box> */}
+      <Card>
+        <CardContent>
+          <Typography gutterBottom variant="h6">
+            Тълкувание за значението на буквите (от недостоверен източник)
+          </Typography>
+          <Typography variant="body1">
+            Помни буквите, учи да говориш! - Аз буки, веди глаголати!
+          </Typography>
+          <Typography variant="body1">
+            Добре е да живееш здраво на земята! - Добро ест живетe дзело земля!
+          </Typography>
+          <Typography variant="body1">
+            Защото както хора мислите, наша е Той опора. - Иже (йота) како люди мислете, наш Он покой.
+          </Typography>
+          <Typography variant="body1">
+            Изричай словото твърдо! - Рци слово твердо!
+          </Typography>
+          <Typography variant="body1">
+            Нагоре всеки да лети! - Ук, ферт, ха!
+          </Typography>
+          <Typography variant="body1">
+            Върви! Избягвай червея! - От! Ща чeрв!
+          </Typography>
+          <Typography variant="body1">
+            Покорявай висотите! - Ци ша!
+          </Typography>
+          <Typography variant="body1">
+            Ти мъж, ти юноша, вие хора! - Еръ, ер, ери! (Ер голям, Ер малък, Еры)
+          </Typography>
+          <Typography variant="body1">
+            Човече! С ум и разум! - Йот! Е о! (Йот, Юс малък, Юс голям)
+          </Typography>
+          <Typography variant="body1">
+            Във вярна посока и с ясно съзнание! - Йе йо! (Юс малък йотиран, Юс голям йотиран)
+          </Typography>
+          <Typography variant="body1">
+            Напред! Слава! - Ю! Ят!
+          </Typography>
+        </CardContent>
+      </Card>
     </Container>
   );
 }
