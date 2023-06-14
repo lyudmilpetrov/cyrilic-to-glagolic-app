@@ -180,6 +180,7 @@ function App() {
             label="Enter text"
             value={inputValue}
             onChange={handleInputChange}
+            autoComplete="off"
           />
         </Box>
         <Typography variant="h6" mt={2} sx={{
