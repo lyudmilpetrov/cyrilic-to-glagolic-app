@@ -177,7 +177,7 @@ function App() {
           }}
         >
           <TextField
-            label="Enter text"
+            label="Въведи текст"
             value={inputValue}
             onChange={handleInputChange}
             autoComplete="off"
