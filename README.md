@@ -1,7 +1,8 @@
 `npm run deploy`
 
 https://lyudmilpetrov.github.io/cyrilic-to-glagolic-app/
-
+# Push to gh-pages
+git push origin master:gh-pages --force
 # Switch to the gh-pages branch
 git checkout gh-pages
 
