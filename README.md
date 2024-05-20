@@ -3,7 +3,11 @@
 https://lyudmilpetrov.github.io/cyrilic-to-glagolic-app/
 ### deploy latest changes
 
+`npm run build`
+rename build to docs
+and publish
 `npm run deploy`
+
 
 <!-- # Push to gh-pages
 git push origin master:gh-pages --force
