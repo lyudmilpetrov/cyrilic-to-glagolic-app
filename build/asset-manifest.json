@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/cyrilic-to-glagolic-app/static/css/main.e6c13ad2.css",
+    "main.js": "/cyrilic-to-glagolic-app/static/js/main.94a99f85.js",
+    "static/js/787.48d35a86.chunk.js": "/cyrilic-to-glagolic-app/static/js/787.48d35a86.chunk.js",
+    "index.html": "/cyrilic-to-glagolic-app/index.html",
+    "main.e6c13ad2.css.map": "/cyrilic-to-glagolic-app/static/css/main.e6c13ad2.css.map",
+    "main.94a99f85.js.map": "/cyrilic-to-glagolic-app/static/js/main.94a99f85.js.map",
+    "787.48d35a86.chunk.js.map": "/cyrilic-to-glagolic-app/static/js/787.48d35a86.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.94a99f85.js"
+  ]
+}
