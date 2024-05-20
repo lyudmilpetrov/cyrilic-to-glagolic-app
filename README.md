@@ -4,8 +4,17 @@ https://lyudmilpetrov.github.io/cyrilic-to-glagolic-app/
 ### deploy latest changes
 
 `npm run build`
-rename build to docs
-and publish
+rename build to docs and also change the index.html to point at the proper source
+from
+    <script
+      defer="defer"
+      src="/cyrilic-to-glagolic-app/static/js/main.94a99f85.js"
+    ></script>
+to
+        <script
+      defer="defer"
+      src="static/js/main.94a99f85.js"
+    ></script>
 `npm run deploy`
 
 
