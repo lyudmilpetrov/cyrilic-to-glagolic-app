@@ -1,7 +1,11 @@
 `npm run deploy`
 
 https://lyudmilpetrov.github.io/cyrilic-to-glagolic-app/
-# Push to gh-pages
+### deploy latest changes
+
+`npm run deploy`
+
+<!-- # Push to gh-pages
 git push origin master:gh-pages --force
 # Switch to the gh-pages branch
 git checkout gh-pages
@@ -13,7 +17,7 @@ git branch -D gh-pages
 git push origin --delete gh-pages
 
 # Switch back to your main branch (e.g., main or master)
-git checkout main
+git checkout main -->
 
 
 
