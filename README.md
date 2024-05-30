@@ -15,6 +15,7 @@ to
       defer="defer"
       src="static/js/main.94a99f85.js"
     ></script>
+    
 `npm run deploy`
 
 Because on github pages the settings point to master and /docs:
