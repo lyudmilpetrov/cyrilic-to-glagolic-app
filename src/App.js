@@ -46,6 +46,7 @@ function App() {
         "https://upload.wikimedia.org/wikipedia/commons/8/89/Glagoljica_Az.svg",
       unicode: "Ⰰ",
       name: "Аз",
+      meaning: "аз",
       sound: "а",
       numericValue: 1,
       greekConnection: "Alpha (Α)",
@@ -57,6 +58,7 @@ function App() {
         "https://upload.wikimedia.org/wikipedia/commons/8/86/Glagolitic_buky.svg",
       unicode: "Ⰱ",
       name: "Буки",
+      meaning: "букви",
       sound: "б",
       numericValue: 2,
       greekConnection: "",
@@ -68,6 +70,7 @@ function App() {
         "https://upload.wikimedia.org/wikipedia/commons/c/c8/Glagoljica_Vedi.svg",
       unicode: "Ⰲ",
       name: "Веди",
+      meaning: "виж",
       sound: "в",
       numericValue: 3,
       greekConnection: "Beta (Β)",
@@ -79,6 +82,7 @@ function App() {
         "https://upload.wikimedia.org/wikipedia/commons/a/a7/Glagolitic_glagoli.svg",
       unicode: "Ⰳ",
       name: "Глагол",
+      meaning: "говоря",
       sound: "г",
       numericValue: 4,
       greekConnection: "Gamma (Γ)",
@@ -90,6 +94,7 @@ function App() {
         "https://upload.wikimedia.org/wikipedia/commons/7/75/Glagolitic_dobro.svg",
       unicode: "Ⰴ",
       name: "Добро",
+      meaning: "добро",
       sound: "д",
       numericValue: 5,
       greekConnection: "Delta (Δ)",
@@ -101,6 +106,7 @@ function App() {
         "https://upload.wikimedia.org/wikipedia/commons/b/b2/Glagolitic_jest.svg",
       unicode: "Ⰵ",
       name: "Есть",
+      meaning: "има",
       sound: "е",
       numericValue: 6,
       greekConnection: "Epsilon (Ε)",
@@ -112,6 +118,7 @@ function App() {
         "https://upload.wikimedia.org/wikipedia/commons/5/5c/Glagolitic_capital_letter_Zhivete.svg",
       unicode: "Ⰶ",
       name: "Живете",
+      meaning: "живеете",
       sound: "ж",
       numericValue: 7,
       greekConnection: "",
@@ -123,6 +130,7 @@ function App() {
         "https://upload.wikimedia.org/wikipedia/commons/5/58/Glagolitic_dzelo.svg",
       unicode: "Ⰷ",
       name: "Дзело",
+      meaning: "земя",
       sound: "дз",
       numericValue: 8,
       greekConnection: "",
@@ -134,6 +142,7 @@ function App() {
         "https://upload.wikimedia.org/wikipedia/commons/f/fd/Glagolitic_zemlja-new.svg",
       unicode: "Ⰸ",
       name: "Земля",
+      meaning: "земя",
       sound: "з",
       numericValue: 9,
       greekConnection: "Zeta (Ζ)",
@@ -145,6 +154,7 @@ function App() {
         "https://upload.wikimedia.org/wikipedia/commons/c/c9/Glagolitic_izhe.svg",
       unicode: "Ⰹ, Ⰺ",
       name: "Йота",
+
       sound: "и",
       numericValue: 10,
       greekConnection: "Iota (Ι)",
@@ -156,6 +166,7 @@ function App() {
         "https://upload.wikimedia.org/wikipedia/commons/5/5b/Glagolitic_i.svg",
       unicode: "Ⰻ",
       name: "Иже",
+      
       sound: "и",
       numericValue: 20,
       greekConnection: "Eta (Η)",
@@ -496,6 +507,7 @@ function App() {
   const [filteredRows, setFilteredRows] = useState(rows);
   const [inputValue, setInputValue] = useState("");
   const [labelValue, setLabelValue] = useState("");
+  const [textValue, setTextValue] = useState("");
 
   const handleInputChange = (e) => {
     console.log(e.target.value);
@@ -505,14 +517,19 @@ function App() {
     ) {
       const valueString = e.target.value.toUpperCase().replaceAll("ДЗ", "Ⰷ");
       let valueStringTranslated = "";
+      let valueStringTranslated2 = "";
       setInputValue(e.target.value);
       /// replaceDZ(conversionToGlagolic(valueString));
       for (const character of valueString) {
-        let char = conversionToGlagolic(character);
+        let char = conversionToGlagolic(character)[0];
+        let name = conversionToGlagolic(character)[1];
         valueStringTranslated += char;
+        valueStringTranslated2 += " " + name;
       }
       valueStringTranslated.replaceAll("ⰄⰈ", "Ⰷ");
-      // console.log(valueStringTranslated);
+      valueStringTranslated2.replaceAll("Добро Земля", "Дзело");
+      // console.log(valueStringTranslated);      
+      setTextValue(valueStringTranslated2);
       setLabelValue(valueStringTranslated);
     }
   };
@@ -533,13 +550,15 @@ function App() {
       //need to convert all the letters to glagolic
       return findUnicodeByCyrillicConnection(e, filteredRows);
     } else {
-      return e;
+      return [e, ""];
     }
   };
   const findUnicodeByCyrillicConnection = (letter, rows) => {
+    console.log(rows);
+    console.log(letter);
     for (const row of rows) {
       if (row.cyrillicConnection[0].toLowerCase() === letter.toLowerCase()) {
-        return row.unicode;
+        return [row.unicode, row.name];
       }
     }
     return letter; // or any fallback value
@@ -612,6 +631,16 @@ function App() {
           }}
         >
           {labelValue}
+        </Typography>
+        <Typography
+          variant="h6"
+          mt={2}
+          sx={{
+            fontWeight: "bold",
+            fontSize: "2.5rem", // Adjust the value to your desired size
+          }}
+        >
+          {textValue}
         </Typography>
         <TableContainer component={Paper}>
           <Table>

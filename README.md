@@ -17,6 +17,8 @@ to
     ></script>
 `npm run deploy`
 
+Because on github pages the settings point to master and /docs:
+
 
 <!-- # Push to gh-pages
 git push origin master:gh-pages --force
